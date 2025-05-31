@@ -106,25 +106,6 @@ Proyek ini memerlukan dataset gestur huruf SIBI untuk melatih model.
     ```
     Program akan menggunakan webcam untuk deteksi dan terjemahan. Pastikan file model (`.keras`) dan file label encoder (`.npy`) berada di lokasi yang benar sesuai path di dalam skrip.
 
-## Struktur Proyek (Contoh)
-.
-├── dataset_video_sibi/             # (Opsional, dibuat pengguna untuk menyimpan video asli)
-├── dataset_landmarks_from_video/     # (Dihasilkan oleh video_ke_landmarks.py)
-├── dataset_landmarks_from_images/  # (Dihasilkan oleh gambar_ke_landmarks.py)
-├── dataset_landmarks_sibi_normalized/ # (Dihasilkan oleh normalisasi_dataset.py)
-│
-├── perekam_dataset_video.py        # Skrip merekam video gestur SIBI
-├── video_ke_landmarks.py           # Skrip konversi dataset video ke landmarks
-├── gambar_ke_landmarks.py          # Skrip konversi dataset gambar ke landmarks
-├── normalisasi_dataset.py          # Skrip normalisasi dataset landmarks
-├── training_sibi_lstm.py           # Skrip untuk melatih model LSTM (sesuaikan nama)
-├── penerjemah_sibi_realtime.py     # Program utama penerjemah SIBI (sesuaikan nama)
-│
-├── sibi_lstm_model_best.keras      # Model terlatih (hasil training)
-├── sibi_label_encoder_classes.npy  # Kelas label encoder (hasil training)
-│
-├── requirements.txt                # Daftar pustaka Python yang dibutuhkan
-└── README.md                       # File ini
 ## Model
 
 * **Arsitektur**: Model pengenalan gestur menggunakan arsitektur Long Short-Term Memory (LSTM).
