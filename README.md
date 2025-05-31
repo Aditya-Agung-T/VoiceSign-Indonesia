@@ -35,11 +35,11 @@ Aplikasi ini bertujuan untuk menerjemahkan gestur huruf dari Sistem Isyarat Baha
 
 2.  **Klon Repositori**:
     ```bash
-    git clone [https://github.com/NAMA_PENGGUNA_ANDA/NAMA_REPOSITORI_ANDA.git](https://github.com/NAMA_PENGGUNA_ANDA/NAMA_REPOSITORI_ANDA.git)
-    cd NAMA_REPOSITORI_ANDA
+    git clone https://github.com/Aditya-Agung-T/VoiceSign-Indonesia.git
+    cd VoiceSign-Indonesia
     ```
 
-3.  **Buat dan Aktifkan Virtual Environment** (Direkomendasikan):
+3.  **Buat dan Aktifkan Virtual Environment** (Opsional) (Direkomendasikan):
     ```bash
     python -m venv venv
     # Windows
@@ -48,8 +48,8 @@ Aplikasi ini bertujuan untuk menerjemahkan gestur huruf dari Sistem Isyarat Baha
     source venv/bin/activate
     ```
 
-4.  **Instal Dependensi**:
-    Pastikan Anda memiliki file `requirements.txt` di direktori root proyek Anda (konten untuk file ini ada di bawah). Kemudian jalankan:
+4.  **Install Requirements**:
+    Pastikan Anda memiliki file `requirements.txt` di direktori. Kemudian jalankan:
     ```bash
     pip install -r requirements.txt
     ```
@@ -60,49 +60,49 @@ Proyek ini memerlukan dataset gestur huruf SIBI untuk melatih model.
 
 * **Jenis Data**: Disarankan untuk membuat dataset video untuk setiap huruf SIBI. Video ini kemudian akan diproses untuk mengekstrak sekuens *landmarks* tangan.
 * **Skrip Pembuatan Dataset**:
-    * `perekam_dataset_video.py`: Untuk merekam video gestur huruf SIBI dari webcam dan menyimpannya ke folder berdasarkan label huruf.
+    * `pembuatan_dataset_video.py`: Untuk merekam video gestur huruf SIBI dari webcam dan menyimpannya ke folder berdasarkan label huruf.
     * `video_ke_landmarks.py`: Untuk memproses dataset video yang sudah ada menjadi dataset sekuens *landmarks* (file `.npy`).
-    * `gambar_ke_landmarks.py`: Untuk memproses dataset gambar statis menjadi dataset *landmarks* (file `.npy`, setiap gambar menjadi 1 frame).
+    * `cv_gambar_ke_landmarks.py`: Untuk memproses dataset gambar statis menjadi dataset *landmarks* (file `.npy`, setiap gambar menjadi 1 frame).
 * **Struktur Folder (Contoh)**:
     * Dataset Video Mentah: `dataset_video_sibi/<LABEL_HURUF>/nama_video.mp4`
     * Dataset Landmarks Mentah (dari video/gambar): `dataset_landmarks_sibi/<LABEL_HURUF>/nama_sampel.npy`
     * Dataset Landmarks Ternormalisasi: `dataset_landmarks_sibi_normalized/<LABEL_HURUF>/nama_sampel.npy`
-* **Normalisasi**: Setelah membuat dataset *landmarks* mentah, jalankan `normalisasi_dataset.py` untuk membuat versi yang ternormalisasi.
-* **Catatan**: Dataset mentah (video/gambar) dan dataset *landmarks* biasanya tidak disertakan langsung di repositori GitHub jika ukurannya besar. Pengguna diharapkan membuat dataset sendiri menggunakan skrip yang disediakan.
+* **Normalisasi**: Setelah membuat dataset *landmarks* mentah, jalankan `normalisasi_datasets_landmarks.py` untuk membuat versi yang ternormalisasi.
+* **Catatan**: Dataset mentah (video/gambar) dan dataset *landmarks* tidak disertakan langsung di repositori GitHub. Pengguna diharapkan membuat dataset sendiri menggunakan skrip yang disediakan.
 
 ## Penggunaan Skrip
 
 1.  **Pembuatan Dataset (Urutan Umum)**:
-    * Jalankan `perekam_dataset_video.py` (jika merekam video baru dari webcam).
+    * Jalankan `pembuatan_dataset_video.py` (jika merekam video baru dari webcam).
         ```bash
-        python perekam_dataset_video.py
+        python pembuatan_dataset_video.py
         ```
     * Jalankan `video_ke_landmarks.py` (jika Anda memiliki dataset video yang sudah ada).
         ```bash
         python video_ke_landmarks.py
         ```
-    * (Opsional) Jalankan `gambar_ke_landmarks.py` (jika Anda memiliki dataset gambar).
+    * (Opsional) Jalankan `cv_gambar_ke_landmarks.py` (jika Anda memiliki dataset gambar).
         ```bash
-        python gambar_ke_landmarks.py
+        python cv_gambar_ke_landmarks.py
         ```
     * Jalankan `normalisasi_dataset.py` pada folder output *landmarks* mentah.
         ```bash
-        python normalisasi_dataset.py
+        python normalisasi_datasets_landmarks.py
         ```
         *(Pastikan path input dan output di dalam skrip ini sudah benar)*
 
 2.  **Training Model**:
-    Jalankan skrip training (misalnya, `training_sibi_lstm.py` - sesuaikan dengan nama file Anda).
+    Jalankan skrip training (`training_data_landmarks.py`).
     ```bash
-    python training_sibi_lstm.py
+    python training_data_landmarks.py
     ```
     Ini akan memuat data *landmarks* yang sudah dinormalisasi, melatih model, dan menyimpan model terbaik (`sibi_lstm_model_best.keras`) serta file kelas label encoder (`sibi_label_encoder_classes.npy`).
     *(Pastikan path dataset di dalam skrip training sudah benar)*
 
 3.  **Menjalankan Penerjemah Real-Time**:
-    Jalankan program utama (misalnya, `penerjemah_sibi_realtime.py` - sesuaikan dengan nama file Anda).
+    Jalankan program utama (`main_program.py`).
     ```bash
-    python penerjemah_sibi_realtime.py
+    python main_program.py
     ```
     Program akan menggunakan webcam untuk deteksi dan terjemahan. Pastikan file model (`.keras`) dan file label encoder (`.npy`) berada di lokasi yang benar sesuai path di dalam skrip.
 
@@ -118,6 +118,6 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan lakukan *fork* pada repos
 
 ## Lisensi
 
-Proyek ini dilisensikan di bawah [LISENSI_ANDA, misalnya MIT License] - lihat file `LICENSE` untuk detailnya.
+Proyek ini dilisensikan di bawah Creative Commons Legal Code
 
 ---
