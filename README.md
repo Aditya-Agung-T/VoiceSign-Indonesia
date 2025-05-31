@@ -118,6 +118,6 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan lakukan *fork* pada repos
 
 ## Lisensi
 
-Proyek ini dilisensikan di bawah Creative Commons Legal Code
+Proyek ini dilisensikan di bawah Creative Commons Zero v1.0 Universal
 
 ---
